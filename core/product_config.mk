@@ -185,8 +185,12 @@ ifneq ($(strip $(TARGET_BUILD_APPS)),)
 all_product_configs := $(call get-product-makefiles,\
     $(SRC_TARGET_DIR)/product/AndroidProducts.mk)
 else
-  ifneq ($(CM_BUILD),)
-    all_product_configs := $(shell ls device/*/$(CM_BUILD)/cm.mk)
+
+#
+# Get the AndroidProducts.mk files
+#
+  ifneq ($(XYLON_BUILD),)
+    all_product_configs := $(shell ls device/*/$(XYLON_BUILD)/xylon.mk)
   else
     # Read in all of the product definitions specified by the AndroidProducts.mk
     # files in the tree.
@@ -194,7 +198,7 @@ else
   endif # CM_BUILD
 endif
 
-ifeq ($(CM_BUILD),)
+ifeq ($(XYLON_BUILD),)
 # Find the product config makefile for the current product.
 # all_product_configs consists items like:
 # <product_name>:<path_to_the_product_makefile>
